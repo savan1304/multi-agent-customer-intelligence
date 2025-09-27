@@ -1,0 +1,16 @@
+CustomerID,SignupDate,PlanLevel,MonthlySpend,LastLoginDate,SupportTicketText,TicketCategory,Churned
+CUST-101,2024-03-15,Pro,75,2025-09-05,"The new reporting feature is a game-changer! It's saved me hours of work already. Just wanted to say thanks to the team.",Feedback,0
+CUST-102,2023-11-20,Enterprise,300,2025-07-10,"I am beyond frustrated. I was double-charged this month and your support has been unresponsive. If this is not fixed and my card refunded within 24 hours, I'm cancelling and moving to a competitor.",Billing,1
+CUST-103,2025-08-22,Basic,25,2025-09-06,"Hi, I'm new here. I'm trying to import my contacts but I keep getting an error message. Can you help me figure out what I'm doing wrong?",Technical,0
+CUST-104,2024-01-30,Pro,75,2025-09-02,"The dashboard works great, but I would love it if we could export the charts directly to PDF. Is this feature on your roadmap?",Feature Request,0
+CUST-105,2025-02-18,Enterprise,300,2025-06-01,"",General Inquiry,1
+CUST-106,2024-09-05,Basic,25,2025-08-29,"Why did my bill go up by $5 this month? I didn't authorize any changes to my account.",Billing,0
+CUST-107,2023-05-12,Enterprise,300,2025-09-04,"The API integration for Salesforce keeps failing with a 401 Unauthorized error, even though the credentials are correct. Our entire workflow is blocked. This is urgent.",Technical,1
+CUST-108,2025-07-15,Pro,75,2025-07-20,"The user interface is very confusing. I can't find anything.",Feedback,1
+CUST-109,2024-06-11,Basic,25,2025-09-03,"Just a quick question - what's the difference between the Pro plan and the Basic plan again?",General Inquiry,0
+CUST-110,2025-01-25,Enterprise,300,2025-09-06,"Everything is working perfectly. The recent update fixed the bug we reported last month. Great job.",Feedback,0
+CUST-111,2024-10-01,Pro,75,2025-04-15,"",General Inquiry,1
+CUST-112,2025-08-01,Basic,25,2025-09-01,"How do I update my credit card information?",Billing,0
+CUST-113,2023-02-14,Enterprise,300,2025-08-30,"The system was really slow this morning around 9 AM. Did you have an outage?",Technical,0
+CUST-114,2024-12-05,Pro,75,2025-09-05,"I love the product, but I think it would be even better if you integrated with Zapier.",Feature Request,0
+CUST-115,2025-05-30,Basic,25,2025-06-25,"I'm trying to cancel my subscription. Please process this immediately.",Billing,1
