@@ -9,35 +9,43 @@ This system demonstrates a sophisticated, real-world business automation process
 ## ► How It Works: The End-to-End Process
 
 The system operates on an automated workflow that intelligently routes customers based on their behavior and sentiment, ensuring that action is only taken when necessary.
-
-              +--------------------+
-              | 1. Load Customer   |
-              |    Data            |
-              +--------------------+
-                       |
-                       v
-              +--------------------+
-              | 2. Sentiment       |
-              |    Analysis Agent  |
-              +--------------------+
-                       |
-                       v
-              +--------------------+
-              | 3. Risk Scoring    |
-              |    Agent (Rules)   |
-              +--------------------+
-                       |
-  +--------------------+--------------------+
-  | (High/Medium Risk) |      (Low Risk)    |
-  v                    v                    v
-+--------------------+  +--------------------+  +----------------+
-| 4. Intervention    |  | 5. Automated       |  | No Action      |
-|    Design Agent    |  |    Outreach Agent  |  | Needed         |
-+--------------------+  +--------------------+  +----------------+
-|                           |
-| (High Risk) -> Creates Urgent Task
-|
-+-------------> (Medium Risk) -> Sends Proactive Email
+              ┌────────────────────┐
+              │ 1. Load Customer   │
+              │    Data            │
+              └────────────────────┘
+                       │
+                       ▼
+              ┌────────────────────┐
+              │ 2. Sentiment       │
+              │    Analysis Agent  │
+              └────────────────────┘
+                       │
+                       ▼
+              ┌────────────────────┐
+              │ 3. Risk Scoring    │
+              │    Agent (Rules)   │
+              └────────────────────┘
+                       │
+              ┌────────┴────────┐
+              │                 │
+              ▼                 ▼
+    ┌────────────────────┐  ┌────────────────┐
+    │ High/Medium Risk   │  │   Low Risk     │
+    └────────────────────┘  └────────────────┘
+              │                       │
+              ▼                       ▼
+    ┌────────────────────┐  ┌────────────────┐
+    │ 4. Intervention    │  │ No Action      │
+    │    Design Agent    │  │ Needed         │
+    └────────────────────┘  └────────────────┘
+              │
+              ▼
+    ┌────────────────────┐
+    │ 5. Create CRM Task │
+    │ (High Risk) or     │
+    │ Send Email         │
+    │ (Medium Risk)      │
+    └────────────────────┘
 
 
 ---
