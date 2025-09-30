@@ -1,157 +1,155 @@
 {
-    "name": "Complete Customer Intelligence System with Python",
-    "nodes": [
-      {
-        "parameters": {
-          "jsCode": "return [\n  {\n    \"CustomerID\": \"CUST-102\",\n    \"SignupDate\": \"2023-11-20\",\n    \"PlanLevel\": \"Enterprise\",\n    \"MonthlySpend\": 300,\n    \"LastLoginDate\": \"2025-07-10\",\n    \"SupportTicketText\": \"I am beyond frustrated. I was double-charged this month and your support has been unresponsive. If this is not fixed and my card refunded within 24 hours, I'm cancelling and moving to a competitor.\",\n    \"TicketCategory\": \"Billing\"\n  },\n  {\n    \"CustomerID\": \"CUST-103\",\n    \"SignupDate\": \"2025-08-22\",\n    \"PlanLevel\": \"Basic\",\n    \"MonthlySpend\": 25,\n    \"LastLoginDate\": \"2025-09-06\",\n    \"SupportTicketText\": \"Hi, I'm new here. I'm trying to import my contacts but I keep getting an error message. Can you help me figure out what I'm doing wrong?\",\n    \"TicketCategory\": \"Technical\"\n  },\n  {\n    \"CustomerID\": \"CUST-101\",\n    \"SignupDate\": \"2024-03-15\",\n    \"PlanLevel\": \"Pro\",\n    \"MonthlySpend\": 75,\n    \"LastLoginDate\": \"2025-09-05\",\n    \"SupportTicketText\": \"The new reporting feature is a game-changer! It's saved me hours of work already. Just wanted to say thanks to the team.\",\n    \"TicketCategory\": \"Feedback\"\n  }\n];"
-        },
-        "id": "27b72e1c-5d66-4e58-888e-ce25528652d8",
-        "name": "1. Load Sample Data",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          620,
-          340
-        ]
+  "name": "Complete Customer Intelligence System with Python",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    \"CustomerID\": \"CUST-102\",\n    \"SignupDate\": \"2023-11-20\",\n    \"PlanLevel\": \"Enterprise\",\n    \"MonthlySpend\": 300,\n    \"LastLoginDate\": \"2025-07-10\",\n    \"SupportTicketText\": \"I am beyond frustrated. I was double-charged this month and your support has been unresponsive. If this is not fixed and my card refunded within 24 hours, I'm cancelling and moving to a competitor.\",\n    \"TicketCategory\": \"Billing\"\n  },\n  {\n    \"CustomerID\": \"CUST-103\",\n    \"SignupDate\": \"2025-08-22\",\n    \"PlanLevel\": \"Basic\",\n    \"MonthlySpend\": 25,\n    \"LastLoginDate\": \"2025-09-06\",\n    \"SupportTicketText\": \"Hi, I'm new here. I'm trying to import my contacts but I keep getting an error message. Can you help me figure out what I'm doing wrong?\",\n    \"TicketCategory\": \"Technical\"\n  },\n  {\n    \"CustomerID\": \"CUST-101\",\n    \"SignupDate\": \"2024-03-15\",\n    \"PlanLevel\": \"Pro\",\n    \"MonthlySpend\": 75,\n    \"LastLoginDate\": \"2025-09-05\",\n    \"SupportTicketText\": \"The new reporting feature is a game-changer! It's saved me hours of work already. Just wanted to say thanks to the team.\",\n    \"TicketCategory\": \"Feedback\"\n  }\n];"
       },
-      {
-        "parameters": {
-          "url": "http://localhost:5001/predict",
-          "options": {},
-          "bodyParameters": {
-            "parameters": [
-              {
-                "name": "CustomerID",
-                "value": "={{ $json.CustomerID }}"
-              },
-              {
-                "name": "PlanLevel",
-                "value": "={{ $json.PlanLevel }}"
-              },
-              {
-                "name": "MonthlySpend",
-                "value": "={{ $json.MonthlySpend }}"
-              },
-              {
-                "name": "TicketCategory",
-                "value": "={{ $json.TicketCategory }}"
-              },
-              {
-                "name": "LastLoginDate",
-                "value": "={{ $json.LastLoginDate }}"
-              }
-            ]
-          }
-        },
-        "id": "e633e24b-354a-4e2e-a574-d42f50b86a83",
-        "name": "2. Risk Scoring Agent (Python ML Model)",
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.1,
-        "position": [
-          840,
-          340
-        ]
-      },
-      {
-        "parameters": {
-          "conditions": {
-            "number": [
-              {
-                "value1": "={{ $json.churn_probability }}",
-                "operation": "larger",
-                "value2": 0.7
-              }
-            ]
-          }
-        },
-        "id": "c1a9b2b0-8c5e-4b6a-9e1e-28f0e5b8e9d3",
-        "name": "3. Route by Risk",
-        "type": "n8n-nodes-base.switch",
-        "typeVersion": 2,
-        "position": [
-          1060,
-          340
-        ]
-      },
-      {
-        "parameters": {
-          "model": "gemini-1.5-flash-latest",
-          "text": "A customer is a high-risk churn threat with a predicted churn probability of {{ $json.churn_probability }}.\n\nCustomer Details:\n- ID: {{ $('1. Load Sample Data').item.json.CustomerID }}\n- Plan: {{ $('1. Load Sample Data').item.json.PlanLevel }}\n- Original Ticket: \"{{ $('1. Load Sample Data').item.json.SupportTicketText }}\"\n\nYour task is to act as an expert Customer Success Manager. Draft a concise, empathetic, and professional email to this customer. The goal is to de-escalate, acknowledge their potential issue, and offer a clear path to resolution by inviting them to a priority support call. Do not offer a discount. Output only the email text."
-        },
-        "id": "f5a0d3a5-1d4e-4f8a-9c7f-8e1c6b1e2c9e",
-        "name": "4. Intervention Design Agent (LLM)",
-        "type": "n8n-nodes-google-gemini.googleGemini",
-        "typeVersion": 1,
-        "position": [
-          1280,
-          240
-        ],
-        "credentials": {
-          "googleGeminiApi": {
-            "id": "",
-            "name": ""
-          }
+      "id": "27b72e1c-5d66-4e58-888e-ce25528652d8",
+      "name": "1. Load Sample Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        620,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:5001/predict",
+        "options": {},
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "CustomerID",
+              "value": "={{ $json.CustomerID }}"
+            },
+            {
+              "name": "PlanLevel",
+              "value": "={{ $json.PlanLevel }}"
+            },
+            {
+              "name": "MonthlySpend",
+              "value": "={{ $json.MonthlySpend }}"
+            },
+            {
+              "name": "TicketCategory",
+              "value": "={{ $json.TicketCategory }}"
+            },
+            {
+              "name": "LastLoginDate",
+              "value": "={{ $json.LastLoginDate }}"
+            }
+          ]
         }
       },
-      {
-        "parameters": {},
-        "id": "a2c3b4d5-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
-        "name": "No Action Needed",
-        "type": "n8n-nodes-base.noOp",
-        "typeVersion": 1,
-        "position": [
-          1280,
-          440
-        ]
-      },
-      {
-        "parameters": {
-          "jsCode": "const intervention = $json.text;\nconst customer = $('1. Load Sample Data').item.json.CustomerID;\nconst churnProb = $('2. Risk Scoring Agent (Python ML Model)').item.json.churn_probability;\n\nconst crmTask = {\n  taskType: 'URGENT_FOLLOW_UP',\n  customerId: customer,\n  title: `High-Risk Churn Alert for ${customer}`,\n  description: `Customer has a churn probability of ${(churnProb * 100).toFixed(2)}%. An automated intervention email has been designed. Please review and contact customer immediately.`,\n  suggestedEmail: intervention\n};\n\nreturn crmTask;"
-        },
-        "id": "b3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
-        "name": "5. Create Urgent CRM Task (Simulated)",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1500,
-          240
-        ]
-      }
-    ],
-    "connections": [
-      {
-        "source": "27b72e1c-5d66-4e58-888e-ce25528652d8",
-        "target": "e633e24b-354a-4e2e-a574-d42f50b86a83",
-        "main": true
-      },
-      {
-        "source": "e633e24b-354a-4e2e-a574-d42f50b86a83",
-        "target": "c1a9b2b0-8c5e-4b6a-9e1e-28f0e5b8e9d3",
-        "main": true
-      },
-      {
-        "source": "c1a9b2b0-8c5e-4b6a-9e1e-28f0e5b8e9d3",
-        "target": "f5a0d3a5-1d4e-4f8a-9c7f-8e1c6b1e2c9e",
-        "main": true,
-        "output": 0
-      },
-      {
-        "source": "c1a9b2b0-8c5e-4b6a-9e1e-28f0e5b8e9d3",
-        "target": "a2c3b4d5-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
-        "main": true,
-        "output": 1
-      },
-      {
-        "source": "f5a0d3a5-1d4e-4f8a-9c7f-8e1c6b1e2c9e",
-        "target": "b3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
-        "main": true
-      }
-    ],
-    "settings": {
-      "executionOrder": "v1"
+      "id": "e633e24b-354a-4e2e-a574-d42f50b86a83",
+      "name": "2. Risk Scoring Agent (Python ML Model)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        840,
+        340
+      ]
     },
-    "staticData": null,
-    "id": "p6kR3GgA0sXJdGv8",
-    "tags": [],
-    "versionId": "f784e183-5854-47e0-94e3-3e7428f52285"
-  }
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.churn_probability }}",
+              "operation": "larger",
+              "value2": 0.7
+            }
+          ]
+        }
+      },
+      "id": "c1a9b2b0-8c5e-4b6a-9e1e-28f0e5b8e9d3",
+      "name": "3. Route by Risk",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gemini-1.5-flash-latest",
+        "text": "A customer is a high-risk churn threat with a predicted churn probability of {{ $json.churn_probability }}.\n\nCustomer Details:\n- ID: {{ $('1. Load Sample Data').item.json.CustomerID }}\n- Plan: {{ $('1. Load Sample Data').item.json.PlanLevel }}\n- Original Ticket: \"{{ $('1. Load Sample Data').item.json.SupportTicketText }}\"\n\nYour task is to act as an expert Customer Success Manager. Draft a concise, empathetic, and professional email to this customer. The goal is to de-escalate, acknowledge their potential issue, and offer a clear path to resolution by inviting them to a priority support call. Do not offer a discount. Output only the email text."
+      },
+      "id": "f5a0d3a5-1d4e-4f8a-9c7f-8e1c6b1e2c9e",
+      "name": "4. Intervention Design Agent (LLM)",
+      "type": "n8n-nodes-google-gemini.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        240
+      ],
+      "credentials": {
+        "googleGeminiApi": {
+          "id": "",
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "a2c3b4d5-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
+      "name": "No Action Needed",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const intervention = $json.text;\nconst customer = $('1. Load Sample Data').item.json.CustomerID;\nconst churnProb = $('2. Risk Scoring Agent (Python ML Model)').item.json.churn_probability;\n\nconst crmTask = {\n  taskType: 'URGENT_FOLLOW_UP',\n  customerId: customer,\n  title: `High-Risk Churn Alert for ${customer}`,\n  description: `Customer has a churn probability of ${(churnProb * 100).toFixed(2)}%. An automated intervention email has been designed. Please review and contact customer immediately.`,\n  suggestedEmail: intervention\n};\n\nreturn crmTask;"
+      },
+      "id": "b3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+      "name": "5. Create Urgent CRM Task (Simulated)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        240
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "source": "27b72e1c-5d66-4e58-888e-ce25528652d8",
+      "target": "e633e24b-354a-4e2e-a574-d42f50b86a83",
+      "main": true
+    },
+    {
+      "source": "e633e24b-354a-4e2e-a574-d42f50b86a83",
+      "target": "c1a9b2b0-8c5e-4b6a-9e1e-28f0e5b8e9d3",
+      "main": true
+    },
+    {
+      "source": "c1a9b2b0-8c5e-4b6a-9e1e-28f0e5b8e9d3",
+      "target": "f5a0d3a5-1d4e-4f8a-9c7f-8e1c6b1e2c9e",
+      "main": true,
+      "output": 0
+    },
+    {
+      "source": "c1a9b2b0-8c5e-4b6a-9e1e-28f0e5b8e9d3",
+      "target": "a2c3b4d5-6e7f-8g9h-0i1j-2k3l4m5n6o7p",
+      "main": true,
+      "output": 1
+    },
+    {
+      "source": "f5a0d3a5-1d4e-4f8a-9c7f-8e1c6b1e2c9e",
+      "target": "b3d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+      "main": true
+    }
+  ],
+  "settings": {},
+  "staticData": null,
+  "id": "p6kR3GgA0sXJdGv8",
+  "tags": [],
+  "versionId": "f784e183-5854-47e0-94e3-3e7428f52285"
+}
